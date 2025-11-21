@@ -75,15 +75,15 @@ Semua request sudah dites lewat Postman.
 File collection bisa di-download di sini:
 https://github.com/attayaghalin/backend-open-recruitment-2025/blob/main/Node%20API.postman_collection.json
 
-Screenshot testing ada di GITHUB.
-
-🌐 Deployment
+H. Deployment
 
 Link hosting API:
-👉 [tulis link Railway/Render kamu di sini]
+- (menyusul)
 
 * Catatan
 
 Project ini dibuat khusus untuk penugasan OR 2025, jadi masih basic dan simpel. Tapi semua flow utama sudah jalan:
 
 Register → Login → pakai token → CRUD.
+
+* MAAF TELAT READMENYA KAK, BARU TAU HARUS PUSH.
