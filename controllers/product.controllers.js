@@ -1,65 +1,88 @@
 const Product = require('../models/product.model.js')
 
-const getProducts = async (req, res) =>{
+const getProducts = async (req, res) => {
   try {
     const products = await Product.find({})
-    res.status(200).json(products)
-  } catch(error) {
-    res.status(500).json({message: error.message})
+    res.status(200).json({
+      success: true,
+      data: products
+    })
+  } catch (error) {
+    throw new Error(error.message)
   }
 }
 
-const getProduct = async (req, res) =>{
+const getProduct = async (req, res) => {
   try {
     const { id } = req.params
     const product = await Product.findById(id)
-    res.status(200).json(product)
-  } catch(error) {
-    res.status(500).json({message: error.message})
+    if (!product) {
+      res.status(404)
+      throw new Error("Product not found")
+    }
+    res.status(200).json({
+      success: true,
+      data: product
+    })
+  } catch (error) {
+    throw new Error(error.message)
   }
 }
 
-const createProduct = async (req, res) =>{
+const createProduct = async (req, res) => {
   try {
     const product = await Product.create(req.body)
-    res.status(200).json(product)
-  } catch(error) {
-    res.status(500).json({message: error.message})
+    res.status(201).json({
+      success: true,
+      message: "Product created",
+      data: product
+    })
+  } catch (error) {
+    throw new Error(error.message)
   }
 }
 
-const updateProduct = async (req, res) =>{
+const updateProduct = async (req, res) => {
   try {
     const { id } = req.params
     const product = await Product.findByIdAndUpdate(id, req.body)
-    if(!product) {
-      return res.status(404).json({message: "Product not found"})
+    if (!product) {
+      res.status(404)
+      throw new Error("Product not found")
     }
     const updatedProduct = await Product.findById(id)
-    res.status(200).json(updatedProduct)
+    res.status(200).json({
+      success: true,
+      message: "Product updated",
+      data: updatedProduct
+    })
 
-  } catch(error) {
-    res.status(500).json({message: error.message})
+  } catch (error) {
+    throw new Error(error.message)
   }
 }
 
-const deleteProduct = async (req, res) =>{
-  try{
-    const {id} = req.params
+const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params
     const product = await Product.findByIdAndDelete(id)
-    if(!product){
-      res.status(404).json({message: "Product not found"})
+    if (!product) {
+      res.status(404)
+      throw new Error("Product not found")
     }
-    res.status(200).json("Product succesfully deleted!")
-  } catch(error) {
-    res.status(500).json({message: error.message})
+    res.status(200).json({
+      success: true,
+      message: "Product deleted"
+    })
+  } catch (error) {
+    throw new Error(error.message)
   }
 }
 
 module.exports = {
-    getProducts,
-    getProduct,
-    createProduct,
-    updateProduct,
-    deleteProduct
+  getProducts,
+  getProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct
 }
